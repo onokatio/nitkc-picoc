@@ -1,29 +1,29 @@
-ローカル変数のpush		PUSHL	n		(fp + n)番地の値をプッシュ
-ローカル変数へのstore	STOREL	n		スタックトップをポップせずに(fp + n)に格納
-一時領域へのstore		STORET	n		スタックトップをポップせずに(sp + n) に格納
+ローカル変数のpush			PUSHL	n		(fp + n)番地の値をプッシュ
+ローカル変数へのstore			STOREL	n		スタックトップをポップせずに(fp + n)に格納
+一時領域へのstore			STORET	n		スタックトップをポップせずに(sp + n) に格納
 グローバル変数のpush	(未定義)		いまのところ使わないので未定義
 グローバル変数へのstore	(未定義)		いまのところ使わないので未定義
 即値のpush				PUSHI	d		値 d をプッシュ
 関数呼出し				CALL	label	label で示される番地をコール
 リターン				RET				スタックトップの番地に復帰
-スタックフレーム生成	ENTER			スタックフレームを生成
-スタックフレーム解放	LEAVE			スタックフレームを解放
-スタックポインタ移動	MVSP	n		SP を増減
+スタックフレーム生成			ENTER			スタックフレームを生成
+スタックフレーム解放			LEAVE			スタックフレームを解放
+スタックポインタ移動			MVSP	n		SP を増減
 分岐					JP		label	label で示される番地に無条件分岐
-条件分岐(真)			JT		label	値をポップし非ゼロなら分岐
-条件分岐(偽)			JF		label	値をポップしゼロなら分岐
+条件分岐(真)				JT		label	値をポップし非ゼロなら分岐
+条件分岐(偽)				JF		label	値をポップしゼロなら分岐
 算術演算				ADD				値を二つポップして演算結果をプッシュ
-						SUB				   push(pop2 OP pop1)
-						MUL
-						DIV
-						MOD
+					SUB				   push(pop2 OP pop1)
+					MUL
+					DIV
+					MOD
 比較演算				EQ				値を二つポップして比較結果をプッシュ
-						NE				  push(pop2 OP pop1)
-						GT				  真なら 1，偽なら 0 をプッシュ
-						GE
-						LT
-						LE
-値の読み込み			RD				整数を読み込み，スタックにプッシュ
+					NE				  push(pop2 OP pop1)
+					GT				  真なら 1，偽なら 0 をプッシュ
+					GE
+					LT
+					LE
+値の読み込み				RD				整数を読み込み，スタックにプッシュ
 値の出力				WR				スタックから値をポップし画面に出力
 改行					WRLN			改行する
 実行停止				HALT			実行を停止する
