@@ -180,7 +180,7 @@ skip_c_style_comment(void)
 	l = line;
 	c = nextch;
 	nextch = fgetc(stream);
-	while (!(c == '*' && nextch == '/') && nextch != EOF){
+	while (c != '*' && nextch != '/' && nextch != EOF){
 		c = nextch;
 		nextch = fgetc(stream);
 		if (nextch == '\n'){

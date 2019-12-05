@@ -33,11 +33,13 @@ test_vm:
 install:
 	mkdir -p ${BINDIR}
 	cp test_parser picocc ${BINDIR} 
+	chmod +x ${BINDIR}/picocc
 	cd vm; make install
 
 clean:
 	${RM} -f *.o
 	cd vm;make clean
+
 hardclean:
 	${RM} -f *.o Makefile~ *.*~ test_scanner test_parser
 	cd vm;make hardclean

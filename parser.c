@@ -439,6 +439,7 @@ parse_if_statement(void)
 	nextsym = scanner_get_next_sym();
 	//codegen_put_comment("条件成立時",1);
 	parse_statement();
+	codegen_put_label(l1);
 	//codegen_put_comment("if文終わり",1);
 }
 
