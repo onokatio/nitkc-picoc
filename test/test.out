@@ -2,10 +2,17 @@
 __start__:
 	call	main
 	halt
-#組込み関数 read()
-#ここに read() の機械語を書く
-#組込み関数 write()
-#ここに write() の機械語を書く
+read:
+	enter
+	rd
+	leave
+	ret
+write:
+	enter
+	pushl 2
+	wr
+	leave
+	ret
 #組込み関数 writeln()
 writeln:
 	enter

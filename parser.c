@@ -746,12 +746,20 @@ put_startup(void)
 	codegen_put_code("halt");
 
 	/* 組込み関数 read() を追加 */
-	codegen_put_comment("組込み関数 read()",0);
-	codegen_put_comment("ここに read() の機械語を書く",0);
+	codegen_put_label("read");
+	codegen_put_code("enter");
+	codegen_put_code("rd");
+	codegen_put_code("storel 2");
+	codegen_put_code("leave");
+	codegen_put_code("ret");
 
 	/* 組込み関数 write() を追加 */
-	codegen_put_comment("組込み関数 write()",0);
-	codegen_put_comment("ここに write() の機械語を書く",0);
+	codegen_put_label("write");
+	codegen_put_code("enter");
+	codegen_put_code("pushl 2");
+	codegen_put_code("wr");
+	codegen_put_code("leave");
+	codegen_put_code("ret");
 
 	codegen_put_comment("組込み関数 writeln()",0);
 	codegen_put_label("writeln");
