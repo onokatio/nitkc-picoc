@@ -653,10 +653,10 @@ parse_factor(void)
 				/* 変数名ではない */
 				ERROR("Parser error");
 			}
-			/* ここで変数を push する命令を生成						*/
+			/* ここで変数を push する命令を生成			*/
 			/* codegen_put_code_num() は 1 個の数値オペランドを持つ	*/
-			/* 命令を生成する										*/
-			/* codegen_put_code_num("???",info->variable.offset);	*/
+			/* 命令を生成する					*/
+			codegen_put_code_num("pushl",info->variable.offset);
 			nextsym = t;
 		}else{
 			/* 次の文字が ( なので，関数のはず */
@@ -758,7 +758,7 @@ put_startup(void)
 	/* 組込み関数 write() を追加 */
 	codegen_put_label("write");
 	codegen_put_code("enter");
-	codegen_put_code("pushl 2");
+	codegen_put_code("pushl 3");
 	codegen_put_code("wr");
 	codegen_put_code("leave");
 	codegen_put_code("ret");
