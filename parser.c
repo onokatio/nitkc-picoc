@@ -448,6 +448,12 @@ void
 parse_while_statement(void)
 {
 	char	l1[LABEL_LEN], l2[LABEL_LEN];
+	format_label(label_counter,l1);
+	label_counter++;
+	format_label(label_counter,l2);
+	label_counter++;
+
+	codegen_put_label(l1);
 
 	nextsym = scanner_get_next_sym();
 	if (nextsym.sym != SYM_LPAREN){
@@ -458,8 +464,16 @@ parse_while_statement(void)
 	if (nextsym.sym != SYM_RPAREN){
 		ERROR("Parser error");
 	}
+
+
+	codegen_put_code_str("jf",l2);
+
 	nextsym = scanner_get_next_sym();
 	parse_statement();
+
+	codegen_put_code_str("jp",l1);
+
+	codegen_put_label(l2);
 }
 
 /* DO文 ::= "do" 文 "while" "( 式 ")" ; . */
