@@ -480,6 +480,7 @@ parse_return_statement(void)
 		parse_expression();
 		/* ここでparse_expression() が計算した値を	*/
 		/* 戻り値領域にストアするコードを生成		*/
+		codegen_put_code_num("storel", RETURN_OFFSET);
 	}
 	if (nextsym.sym != SYM_SEMICOLON){
 		ERROR("Parser error");
