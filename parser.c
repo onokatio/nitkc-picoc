@@ -600,11 +600,13 @@ parse_multiplicative_expression(void)
 	char	*opcode;
 
 	parse_monomial_expression();
-	while (nextsym.sym == SYM_ASTERISK || nextsym.sym == SYM_SLASH){
+	while (nextsym.sym == SYM_ASTERISK || nextsym.sym == SYM_SLASH || nextsym.sym == SYM_PERCENT){
 		if (nextsym.sym == SYM_ASTERISK){
 			opcode = "mul";
 		}else if (nextsym.sym == SYM_SLASH){
 			opcode = "div";
+		}else if (nextsym.sym == SYM_PERCENT){
+			opcode = "mod";
 		}
 		nextsym = scanner_get_next_sym();
 		parse_monomial_expression();
