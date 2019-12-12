@@ -5,6 +5,7 @@ __start__:
 read:
 	enter
 	rd
+	storel 2
 	leave
 	ret
 write:
@@ -22,11 +23,11 @@ writeln:
 main:
 	enter
 	mvsp	-1
-	pushi	1
-	pushi	-1
-	mul
-	pushi	-1
-	mul
+	pushi	10
+	storel	-1
+	mvsp	1
+	pushi	3
+	mod
 	storel	-1
 	mvsp	1
 	mvsp	-1
