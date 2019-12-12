@@ -751,7 +751,7 @@ put_startup(void)
 	codegen_put_label("read");
 	codegen_put_code("enter");
 	codegen_put_code("rd");
-	codegen_put_code("storel 2");
+	codegen_put_code_num("storel", RETURN_OFFSET);
 	codegen_put_code("leave");
 	codegen_put_code("ret");
 
