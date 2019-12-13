@@ -410,6 +410,7 @@ parse_expression_statement(void)
 		if (nextsym.sym == SYM_SEMICOLON){
 			nextsym = scanner_get_next_sym();
 		}else{
+			printf("%d", nextsym.sym);
 			ERROR("Parser error");
 		}
 		codegen_put_code_num("mvsp",1);
@@ -432,14 +433,28 @@ parse_if_statement(void)
 	if (nextsym.sym != SYM_RPAREN){
 		ERROR("Parser error");
 	}
+	nextsym = scanner_get_next_sym();
+
 	format_label(label_counter,l1);
 	label_counter++;
+	format_label(label_counter,l2);
+	label_counter++;
+
 	//codegen_put_comment("if文",1);
 	codegen_put_code_str("jf",l1);
-	nextsym = scanner_get_next_sym();
-	//codegen_put_comment("条件成立時",1);
 	parse_statement();
+	codegen_put_code_str("jp",l2);
+
 	codegen_put_label(l1);
+
+	if (nextsym.sym == SYM_ELSE){
+		nextsym = scanner_get_next_sym();
+		parse_statement();
+	}else{
+		nextsym = scanner_get_next_sym();
+	}
+	//codegen_put_comment("条件成立時",1);
+	codegen_put_label(l2);
 	//codegen_put_comment("if文終わり",1);
 }
 
