@@ -497,6 +497,35 @@ parse_do_statement(void)
 {
 
 	/* DO 文に対応しなさい */
+	char	l1[LABEL_LEN], l2[LABEL_LEN];
+
+	format_label(label_counter,l1);
+	label_counter++;
+	nextsym = scanner_get_next_sym();
+
+	codegen_put_label(l1);
+
+	parse_statement();
+
+	if (nextsym.sym != SYM_WHILE){
+		printf("%d", nextsym.sym);
+		ERROR("Parser error");
+	}
+	nextsym = scanner_get_next_sym();
+
+	if (nextsym.sym != SYM_LPAREN){
+		ERROR("Parser error");
+	}
+	nextsym = scanner_get_next_sym();
+
+	parse_expression();
+
+	if (nextsym.sym != SYM_RPAREN){
+		ERROR("Parser error");
+	}
+	nextsym = scanner_get_next_sym();
+
+	codegen_put_code_str("jt",l1);
 }
 
 /* リターン文 ::= "return" [ 式 ] ";" .			*/
