@@ -451,8 +451,6 @@ parse_if_statement(void)
 	if (nextsym.sym == SYM_ELSE){
 		nextsym = scanner_get_next_sym();
 		parse_statement();
-	}else{
-		nextsym = scanner_get_next_sym();
 	}
 	//codegen_put_comment("if文終わり",1);
 	codegen_put_label(l2);
@@ -533,6 +531,7 @@ parse_do_statement(void)
 void
 parse_return_statement(void)
 {
+	//codegen_put_comment("store return value",1);
 	nextsym = scanner_get_next_sym();
 	if (nextsym.sym != SYM_SEMICOLON){
 		parse_expression();
