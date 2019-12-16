@@ -478,7 +478,6 @@ parse_while_statement(void)
 		ERROR("Parser error");
 	}
 
-
 	codegen_put_code_str("jf",l2);
 
 	nextsym = scanner_get_next_sym();
