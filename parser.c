@@ -817,7 +817,7 @@ put_startup(void)
 	codegen_put_comment("組込み関数 write()",0);
 	codegen_put_label("write");
 	codegen_put_code("enter");
-	codegen_put_code_num("pushl", 3);
+	codegen_put_code_num("pushl", PARAMETER_OFFSET);
 	codegen_put_code("wr");
 	codegen_put_code("leave");
 	codegen_put_code("ret");
