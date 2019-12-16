@@ -25,7 +25,9 @@ writeln:
 main:
 	enter
 	mvsp	-2
-
+	pushi	1
+	storel	-1
+	mvsp	1
 	pushl	-1
 	pushi	1
 	eq

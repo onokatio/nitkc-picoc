@@ -2,15 +2,17 @@
 __start__:
 	call	main
 	halt
+#組込み関数 read()
 read:
 	enter
 	rd
-	storel 2
+	storel	2
 	leave
 	ret
+#組込み関数 write()
 write:
 	enter
-	pushl 2
+	pushl	3
 	wr
 	leave
 	ret
@@ -23,13 +25,14 @@ writeln:
 main:
 	enter
 	mvsp	-1
-	pushi	10
+	pushi	1
+	pushi	-1
+	mul
+	pushi	-1
+	mul
 	storel	-1
 	mvsp	1
-	pushi	3
-	mod
-	storel	-1
-	mvsp	1
+	pushl	-1
 	mvsp	-1
 	call	write
 	storet	1

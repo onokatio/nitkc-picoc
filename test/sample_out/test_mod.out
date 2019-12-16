@@ -28,10 +28,9 @@ main:
 	pushi	10
 	storel	-1
 	mvsp	1
-.L0:
 	pushl	-1
-	pushi	2
-	div
+	pushi	3
+	mod
 	storel	-1
 	mvsp	1
 	pushl	-1
@@ -40,10 +39,9 @@ main:
 	storet	1
 	mvsp	1
 	mvsp	1
-	pushl	-1
-	pushi	0
-	gt
-	jt	.L0
+	mvsp	-1
+	call	writeln
+	mvsp	1
 	mvsp	1
 	leave
 	ret
