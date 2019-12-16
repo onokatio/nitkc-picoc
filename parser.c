@@ -711,9 +711,9 @@ parse_factor(void)
 				/* 変数名ではない */
 				ERROR("Parser error");
 			}
-			/* ここで変数を push する命令を生成			*/
+			/* ここで変数を push する命令を生成						*/
 			/* codegen_put_code_num() は 1 個の数値オペランドを持つ	*/
-			/* 命令を生成する					*/
+			/* 命令を生成する										*/
 			codegen_put_code_num("pushl",info->variable.offset);
 			nextsym = t;
 		}else{
