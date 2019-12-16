@@ -433,7 +433,6 @@ parse_if_statement(void)
 	if (nextsym.sym != SYM_RPAREN){
 		ERROR("Parser error");
 	}
-	nextsym = scanner_get_next_sym();
 
 	format_label(label_counter,l1);
 	label_counter++;
@@ -442,6 +441,7 @@ parse_if_statement(void)
 
 	//codegen_put_comment("if文",1);
 	codegen_put_code_str("jf",l1);
+	nextsym = scanner_get_next_sym();
 	//codegen_put_comment("条件成立時",1);
 	parse_statement();
 	codegen_put_code_str("jp",l2);
