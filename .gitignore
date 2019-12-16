@@ -1,5 +1,5 @@
 test_parser
 test_scanner
 vm/test_vm
-*.out
+test/out/*.out
 *.o
