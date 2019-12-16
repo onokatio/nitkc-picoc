@@ -442,6 +442,7 @@ parse_if_statement(void)
 
 	//codegen_put_comment("if文",1);
 	codegen_put_code_str("jf",l1);
+	//codegen_put_comment("条件成立時",1);
 	parse_statement();
 	codegen_put_code_str("jp",l2);
 
@@ -453,9 +454,8 @@ parse_if_statement(void)
 	}else{
 		nextsym = scanner_get_next_sym();
 	}
-	//codegen_put_comment("条件成立時",1);
-	codegen_put_label(l2);
 	//codegen_put_comment("if文終わり",1);
+	codegen_put_label(l2);
 }
 
 /* 反復文 ::= "while" "( 式 ")" 文 . */
