@@ -1,0 +1,141 @@
+#Picoc09 2011-12-13
+__start__:
+	call	main
+	halt
+#組込み関数 read()
+read:
+	enter
+	rd
+	storel	2
+	leave
+	ret
+#組込み関数 write()
+write:
+	enter
+	pushl	3
+	wr
+	leave
+	ret
+#組込み関数 writeln()
+writeln:
+	enter
+	wrln
+	leave
+	ret
+main:
+	enter
+	mvsp	-3
+.L0:
+	mvsp	-1
+	call	read
+	storel	-1
+	mvsp	1
+	pushl	-1
+	pushi	0
+	lt
+	jt	.L0
+	pushl	-1
+	pushi	5
+	mod
+	storel	-1
+	mvsp	1
+	pushl	-1
+	mvsp	-1
+	call	fact_recursive
+	storet	1
+	mvsp	1
+	storel	-2
+	mvsp	1
+	pushl	-1
+	mvsp	-1
+	call	fact_loop
+	storet	1
+	mvsp	1
+	storel	-3
+	mvsp	1
+	pushl	-2
+	mvsp	-1
+	call	write
+	storet	1
+	mvsp	1
+	mvsp	1
+	pushl	-3
+	mvsp	-1
+	call	write
+	storet	1
+	mvsp	1
+	mvsp	1
+	mvsp	-1
+	call	writeln
+	mvsp	1
+	mvsp	3
+	leave
+	ret
+fact_recursive:
+	enter
+	pushl	3
+	pushi	0
+	lt
+	jf	.L1
+	pushi	0
+	storel	2
+	leave
+	ret
+	jp	.L2
+.L1:
+	pushl	3
+	pushi	1
+	le
+	jf	.L3
+	pushi	1
+	storel	2
+	leave
+	ret
+	jp	.L4
+.L3:
+	pushl	3
+	pushl	3
+	pushi	1
+	sub
+	mvsp	-1
+	call	fact_recursive
+	storet	1
+	mvsp	1
+	mul
+	storel	2
+	leave
+	ret
+.L4:
+.L2:
+	leave
+	ret
+fact_loop:
+	enter
+	mvsp	-1
+	pushi	1
+	storel	-1
+	mvsp	1
+.L5:
+	pushl	3
+	pushi	1
+	ge
+	jf	.L6
+	pushl	-1
+	pushl	3
+	mul
+	storel	-1
+	mvsp	1
+	pushl	3
+	pushi	1
+	sub
+	storel	3
+	mvsp	1
+	jp	.L5
+.L6:
+	pushl	-1
+	storel	2
+	leave
+	ret
+	mvsp	1
+	leave
+	ret

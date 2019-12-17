@@ -32,6 +32,10 @@ main:
 	mul
 	storel	-1
 	mvsp	1
+	mvsp	-1
+	call	read
+	storel	-1
+	mvsp	1
 	pushl	-1
 	mvsp	-1
 	call	write

@@ -25,20 +25,38 @@ writeln:
 main:
 	enter
 	mvsp	-3
-	mvsp	-1
-	call	read
-	storel	-1
-	mvsp	1
-	mvsp	-1
-	call	read
+	pushi	1
+	storel	-3
 	storel	-2
+	storel	-1
 	mvsp	1
 	pushl	-1
 	pushl	-2
-	mul
-	storel	-3
-	mvsp	1
 	pushl	-3
+	pushl	-1
+	mul
+	mvsp	-1
+	call	add
+	storet	3
+	mvsp	3
+	mvsp	-1
+	call	c
+	pushl	-3
+	mul
+	add
+	storel	-2
+	storel	-1
+	mvsp	1
+	pushl	-1
+	mvsp	-1
+	call	write
+	storet	1
+	mvsp	1
+	mvsp	1
+	mvsp	-1
+	call	writeln
+	mvsp	1
+	pushl	-2
 	mvsp	-1
 	call	write
 	storet	1
@@ -48,5 +66,30 @@ main:
 	call	writeln
 	mvsp	1
 	mvsp	3
+	leave
+	ret
+add:
+	enter
+	mvsp	-1
+	pushl	5
+	pushl	4
+	add
+	pushl	3
+	add
+	storel	-1
+	mvsp	1
+	pushl	-1
+	storel	2
+	leave
+	ret
+	mvsp	1
+	leave
+	ret
+c:
+	enter
+	pushi	1
+	storel	2
+	leave
+	ret
 	leave
 	ret

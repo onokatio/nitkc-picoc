@@ -24,29 +24,15 @@ writeln:
 	ret
 main:
 	enter
-	mvsp	-3
 	mvsp	-1
-	call	read
+	pushi	0
 	storel	-1
-	mvsp	1
-	mvsp	-1
-	call	read
-	storel	-2
-	mvsp	1
+.L0:
 	pushl	-1
-	pushl	-2
-	mul
-	storel	-3
-	mvsp	1
-	pushl	-3
-	mvsp	-1
-	call	write
-	storet	1
-	mvsp	1
-	mvsp	1
-	mvsp	-1
-	call	writeln
-	mvsp	1
-	mvsp	3
-	leave
-	ret
+	pushi	10
+	lt
+	jf	.L3
+	jp	.L2
+.L1:
+	pushl	-1
+	add
