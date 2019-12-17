@@ -559,7 +559,7 @@ parse_expression(void)
 
 	t = scanner_get_next_sym();
 	scanner_push_back_sym(t);
-	if (nextsym.sym == SYM_IDENTIFIER && t.sym == SYM_EQUAL){
+	if (nextsym.sym == SYM_IDENTIFIER && ( t.sym == SYM_EQUAL || t.sym == SYM_PLUSEQUAL )){
 		parse_assign_expression();
 	}else{
 		parse_equality_expression();
@@ -581,12 +581,22 @@ parse_assign_expression(void)
 		ERROR("Parser error");
 	}
 	nextsym = scanner_get_next_sym();
-	if (nextsym.sym != SYM_EQUAL){
+	if (nextsym.sym != SYM_EQUAL && nextsym.sym != SYM_PLUSEQUAL ){
 		ERROR("Parser error");
 	}
-	nextsym = scanner_get_next_sym();
-	parse_expression();
-	codegen_put_code_num("storel",info->variable.offset);
+	if ( nextsym.sym == SYM_EQUAL){
+		// id = expr
+		nextsym = scanner_get_next_sym();
+		parse_expression();
+		codegen_put_code_num("storel",info->variable.offset);
+	}else if( nextsym.sym == SYM_PLUSEQUAL ){
+		// id += expr
+		nextsym = scanner_get_next_sym();
+		parse_expression();
+		codegen_put_code_num("pushl",info->variable.offset);
+		codegen_put_code("add");
+		codegen_put_code_num("storel",info->variable.offset);
+	}
 }
 
 /* 等価式 ::= 関係式 { ( "==" | "!=" ) 関係式 } . */

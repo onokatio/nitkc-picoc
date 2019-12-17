@@ -61,7 +61,12 @@ scanner_get_next_sym(void)
 		sym = scan_const_number();
 	}else if (nextch == '+'){
 		nextch = fgetc(stream);
-		sym.sym = SYM_PLUS;
+		if (nextch == '='){
+			nextch = fgetc(stream);
+			sym.sym = SYM_PLUSEQUAL;
+		}else{
+			sym.sym = SYM_PLUS;
+		}
 	}else if (nextch == '-'){
 		nextch = fgetc(stream);
 		sym.sym = SYM_MINUS;

@@ -23,6 +23,7 @@ char *sym_name[] = {
 	"EQ",
 	"NE",
 	"EQUAL",
+	"PLUSEQUAL",
 	"SEMICOLON",
 	"COMMA",
 	"LPAREN",

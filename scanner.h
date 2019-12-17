@@ -28,6 +28,7 @@ typedef enum {
 	SYM_EQ,				/* == */
 	SYM_NE,				/* != */
 	SYM_EQUAL,			/* = */
+	SYM_PLUSEQUAL,			/* += */
 	SYM_SEMICOLON,		/* ; */
 	SYM_COMMA,			/* , */
 	SYM_LPAREN,			/* ( */
