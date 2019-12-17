@@ -11,6 +11,8 @@
 
 static char *opcode_dic[] = {
 	"halt",
+	"pushg",
+	"storeg",
 	"pushl",
 	"storel",
 	"storet",
@@ -63,6 +65,12 @@ tolower_str(char *str);
 
 static void
 exec_halt(vm_t *vm);
+
+static void
+exec_pushg(vm_t *vm);
+
+static void
+exec_storeg(vm_t *vm);
 
 static void
 exec_pushl(vm_t *vm);
@@ -162,6 +170,8 @@ inc_pc(vm_t *vm);
 
 static void (*(func_table[]))(vm_t *vm) = {
 	exec_halt,
+	exec_pushg,
+	exec_storeg,
 	exec_pushl,
 	exec_storel,
 	exec_storet,
@@ -456,6 +466,18 @@ void
 exec_halt(vm_t *vm)
 {
 	vm->status = VM_HALT;
+}
+
+void
+exec_pushg(vm_t *vm)
+{
+	push(vm,vm->stack[OPERAND(vm)]);
+}
+
+void
+exec_storeg(vm_t *vm)
+{
+	vm->stack[OPERAND(vm)] = peek(vm);
 }
 
 void
