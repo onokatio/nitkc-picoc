@@ -36,3 +36,5 @@ main:
 .L1:
 	pushl	-1
 	add
+	jp	.L0
+.L2:
