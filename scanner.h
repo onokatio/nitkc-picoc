@@ -13,6 +13,7 @@ typedef enum {
 	SYM_IF,				/* if */
 	SYM_ELSE,			/* else */
 	SYM_WHILE,			/* while */
+	SYM_FOR,			/* for */
 	SYM_DO,				/* do */
 	SYM_RETURN,			/* return */
 	SYM_INT,			/* int */

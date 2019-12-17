@@ -71,6 +71,9 @@ static void
 parse_while_statement(void);
 
 static void
+parse_for_statement(void);
+
+static void
 parse_do_statement(void);
 
 static void
@@ -388,6 +391,8 @@ parse_statement(void)
 		parse_if_statement();
 	}else if (nextsym.sym == SYM_WHILE){
 		parse_while_statement();
+	}else if (nextsym.sym == SYM_FOR){
+		parse_for_statement();
 	}else if (nextsym.sym == SYM_DO){
 		parse_do_statement();
 	}else if (nextsym.sym == SYM_RETURN){
@@ -486,6 +491,82 @@ parse_while_statement(void)
 	codegen_put_code_str("jp",l1);
 
 	codegen_put_label(l2);
+}
+
+/* 反復文 ::= "for" "(" 式1 ";" 式2 ";" 式3 ")" 文 . */
+void
+parse_for_statement(void)
+{
+	char	label_loopstart[LABEL_LEN], label_loopend[LABEL_LEN];
+	char	label_programstart[LABEL_LEN];
+	char	label_counterstart[LABEL_LEN];
+	format_label(label_counter,label_loopstart);
+	label_counter++;
+	format_label(label_counter,label_loopend);
+	label_counter++;
+	format_label(label_counter,label_programstart);
+	label_counter++;
+	format_label(label_counter,label_counterstart);
+	label_counter++;
+
+
+	nextsym = scanner_get_next_sym();
+
+	if (nextsym.sym != SYM_LPAREN){
+		ERROR("Parser error");
+	}
+	nextsym = scanner_get_next_sym();
+
+	//式1
+	codegen_put_comment("(for) initialize start", 1);
+	parse_expression();
+	codegen_put_comment("(for) initialize end", 1);
+
+	if (nextsym.sym != SYM_SEMICOLON){
+		ERROR("Parser error");
+	}
+
+	codegen_put_label(label_loopstart);
+
+	//式2
+	codegen_put_comment("(for) expression start", 0);
+	nextsym = scanner_get_next_sym();
+	parse_expression();
+	codegen_put_comment("(for) expression end", 0);
+	codegen_put_code_str("jf",label_loopend);
+	codegen_put_code_str("jp",label_programstart);
+
+	if (nextsym.sym != SYM_SEMICOLON){
+		ERROR("Parser error");
+	}
+
+	//式3
+	codegen_put_label(label_counterstart);
+	codegen_put_comment("(for) counter start", 0);
+	nextsym = scanner_get_next_sym();
+	parse_expression();
+	codegen_put_comment("(for) counter end", 0);
+	codegen_put_code_str("jp",label_loopstart);
+
+	if (nextsym.sym != SYM_RPAREN){
+		ERROR("Parser error");
+	}
+
+
+	//codegen_put_code_str("jf",l2);
+
+	codegen_put_label(label_programstart);
+	codegen_put_comment("(for) program start", 0);
+	nextsym = scanner_get_next_sym();
+	parse_statement();
+	codegen_put_comment("(for) program end", 0);
+	codegen_put_code_str("jp",label_counterstart);
+
+	//codegen_put_code_str("jp",l1);
+
+
+	codegen_put_comment("(for) loop end", 0);
+	codegen_put_label(label_loopend);
 }
 
 /* DO文 ::= "do" 文 "while" "( 式 ")" ; . */

@@ -256,6 +256,8 @@ scan_identifier(void)
 		sym.sym = SYM_ELSE;
 	}else if (strcmp(id,"while") == 0){
 		sym.sym = SYM_WHILE;
+	}else if (strcmp(id,"for") == 0){
+		sym.sym = SYM_FOR;
 	}else if (strcmp(id,"do") == 0){
 		sym.sym = SYM_DO;
 	}else if (strcmp(id,"return") == 0){

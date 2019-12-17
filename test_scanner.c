@@ -8,6 +8,7 @@ char *sym_name[] = {
 	"IF",
 	"ELSE",
 	"WHILE",
+	"FOR",
 	"DO",
 	"RETURN",
 	"INT",
